@@ -24,6 +24,7 @@ export default function EarthquakeData(WrappedComponent) {
       };
 
       this.updateFilter = this.updateFilter.bind(this);
+      this.getEarthquakes = this.getEarthquakes.bind(this);
     }
     /**
      * Write the logic to fetch the earthquakes here
@@ -32,8 +33,12 @@ export default function EarthquakeData(WrappedComponent) {
      */
     async componentDidMount() {
       try {
-        const api = 'http://interviewtest.getguru.com/seismic/data.json';
-        const response = await fetch(api);
+        const response = await fetch(
+          'http://interviewtest.getguru.com/seismic/data.json'
+        );
+        if (!response.ok) {
+          throw new Error('Unable to fetch data!');
+        }
         const earthquakes = await response.json();
         const { filter } = this.state;
 
