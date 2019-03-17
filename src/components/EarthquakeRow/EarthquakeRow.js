@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import Moment from 'moment';
 
@@ -50,14 +50,15 @@ export default class EarthquakeRow extends PureComponent {
     }
 
     return (
-      <tr className="EarthquakeRow">
-        {/* This should return the details, all the values, and the details button */}
-        <td className="EarthquakeRow__value">{id}</td>
-        <td className="EarthquakeRow__value">{newTime}</td>
-        <td className="EarthquakeRow__value">{place}</td>
-        <td className="EarthquakeRow__value">{mag}</td>
-        <td className="EarthquakeRow__value">{earthquakeDetails}</td>
-      </tr>
+      <Fragment>
+        <tr className="EarthquakeRow">
+          <td className="EarthquakeRow__value">{id}</td>
+          <td className="EarthquakeRow__value">{newTime}</td>
+          <td className="EarthquakeRow__value">{place}</td>
+          <td className="EarthquakeRow__value">{mag}</td>
+          <td className="EarthquakeRow__value">{earthquakeDetails}</td>
+        </tr>
+      </Fragment>
     );
   }
 }
