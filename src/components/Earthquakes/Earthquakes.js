@@ -7,20 +7,33 @@ import EarthquakeFilter from 'components/EarthquakeFilter/EarthquakeFilter';
 
 import 'components/Earthquakes/Earthquakes.css';
 
-class Earthquakes extends PureComponent {
+export default class Earthquakes extends PureComponent {
   render() {
-    const { updateFilter } = this.props;
+    const { updateFilter, earthquakes } = this.props;
 
+    const earthquakeRows = earthquakes.map(el => (
+      <EarthquakeRow
+        key={el.id}
+        id={el.id}
+        time={el.time}
+        place={el.place}
+        mag={el.mag}
+        longitude={el.longitude}
+        latitude={el.latitude}
+      />
+    ));
     return (
       <div className="Earthquakes">
         <EarthquakeFilter onInput={updateFilter} />
         {/* render all your earthquake rows here! */}
+        <table className="Earthquakes__table-scroller Earthquakes__table">
+          <EarthquakesHeader />
+          <tbody>{earthquakeRows}</tbody>
+        </table>
       </div>
     );
   }
 }
-
-export default Earthquakes;
 
 Earthquakes.propTypes = {
   earthquakes: PropTypes.arrayOf(

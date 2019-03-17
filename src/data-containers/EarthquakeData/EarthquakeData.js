@@ -25,15 +25,27 @@ export default function EarthquakeData(WrappedComponent) {
 
       this.updateFilter = this.updateFilter.bind(this);
     }
+    /**
+     * Write the logic to fetch the earthquakes here
+     * It should sort filter and slice the data as soon as it loads.
+     * this should be achieved with the organizeEarthquakes function you write
+     */
+    async componentDidMount() {
+      try {
+        const api = 'http://interviewtest.getguru.com/seismic/data.json';
+        const response = await fetch(api);
+        const earthquakes = await response.json();
+        const { filter } = this.state;
 
-    componentDidMount() {
-      /**
-       * Write the logic to fetch the earthquakes here
-       * It should sort filter and slice the data as soon as it loads.
-       * this should be achieved with the organizeEarthquakes function you write
-       */
+        this.getEarthquakes(earthquakes);
+        this.updateFilter(filter);
+      } catch (err) {
+        throw err;
+      }
     }
-
+    getEarthquakes(json) {
+      this.setState({ earthquakes: json });
+    }
     updateFilter(filter) {
       const { earthquakes } = this.state;
 

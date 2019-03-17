@@ -1,4 +1,4 @@
-import React, { PureComponent, Fragment } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import Moment from 'moment';
 
@@ -27,11 +27,37 @@ export default class EarthquakeRow extends PureComponent {
 
   render() {
     /** Don't forget to format the time here! */
+    const { id, time, place, mag, longitude, latitude } = this.props;
+    const newTime = Moment(time).format('MMMM D, YYYY @ k:m');
+
+    let earthquakeDetails = (
+      <EarthquakeDetailsButton onClick={this.toggleDetails} />
+    );
+
+    if (this.state.expanded) {
+      earthquakeDetails = (
+        <div
+          className="EarthquakeRow__details"
+          onClick={this.toggleDetails}
+          onKeyPress={this.toggleDetails}
+          role="button"
+          tabIndex={0}
+        >
+          <div className="EarthquakeRow__detail">Latitude: {latitude}</div>
+          <div className="EarthquakeRow__detail">Longitude: {longitude}</div>
+        </div>
+      );
+    }
 
     return (
-      <div>
+      <tr className="EarthquakeRow">
         {/* This should return the details, all the values, and the details button */}
-      </div>
+        <td className="EarthquakeRow__value">{id}</td>
+        <td className="EarthquakeRow__value">{newTime}</td>
+        <td className="EarthquakeRow__value">{place}</td>
+        <td className="EarthquakeRow__value">{mag}</td>
+        <td className="EarthquakeRow__value">{earthquakeDetails}</td>
+      </tr>
     );
   }
 }
